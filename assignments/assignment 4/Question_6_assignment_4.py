@@ -7,8 +7,8 @@ from tensorflow.keras.datasets import fashion_mnist
 
 #2. Preprocessing
 # Normalize pixel values to be between 0 and 1
-X_train= X_train.astype("float32")/255.0
-X_test= X_test.astype("float32")/255.0
+X_train= X_train/255.0
+X_test= X_test/255.0
 
 #Reshape to include the channel dimension (28,28,1) for grayscale
 X_train= X_train.reshape((-1,28,28,1))
@@ -32,7 +32,7 @@ model.compile(optimizer='adam', loss= 'sparse_categorical_crossentropy', metrics
 
 #5. Train the model
 #Training for 15 epochs as requested
-history= model.fit(X_train,y_train, epochs=15, validation_data=(X_test, y_test))
+model.fit(X_train,y_train, epochs=15, validation_split=0.1)
 
 #6. Report test accuracy
 test_loss, test_acc= model.evaluate(X_test, y_test, verbose=2)
